@@ -1,0 +1,52 @@
+/*	################################################	*/
+/*	################## PRINT STYLES ################	*/
+/*	################################################	*/
+
+@import url(external_files/css/fonts.css);
+
+@media print {
+	* {
+		background: transparent !important;
+		color: black !important;
+		text-shadow: none !important;
+		filter: none !important;
+		-ms-filter: none !important;
+	}
+	a,
+	a: visited {
+		color: #444444 !important;
+		text-decoration: underline;
+	}
+	
+	/*	inserts the link's url in parenthesis after each link	*/
+	a[href]: after {
+		content: " (" attr(href) ")";
+	}
+	/*	removes the inserted link after each internal link (#) or javascript link (javascript:)	*/
+	a[href ^= "#"]: after,
+	a[href ^= "javascript:"]: after {
+		content: "";
+	}
+
+	/*	avoid widow headers/lines (stranded last line), orphan lines (stranded first line or word that spills onto a new line), or dividing up images/table rows	*/
+	h2, h3 {
+		widows: 3;
+		orphans: 3;
+		page-break-after: avoid;
+	}
+	p {
+		widows: 3;
+		orphans: 3;
+	}
+	tr {
+		page-break-inside: avoid;
+	}
+	image {
+		page-break-inside: avoid;
+		max-width: 100% !important;
+	}
+	@page {
+		margin: 1in;
+	}	
+}
+

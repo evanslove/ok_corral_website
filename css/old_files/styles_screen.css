@@ -1,0 +1,770 @@
+/*	##################################################	*/
+/*	##################################################	*/
+/*	################# OK CORRAL CSS ##################	*/
+/*	##################################################	*/
+/*	##################################################	*/
+
+/*	VERSION 1.0	*/
+
+/*	##################################################	*/
+/*	##################### IMPORT #####################	*/
+/*	##################################################	*/
+
+@import url(font_face.css);
+
+
+/*	##################################################	*/
+/*	################ GLOBAL STRUCTURE ################	*/
+/*	##################################################	*/
+
+*
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+html,
+body
+{
+	height: 100%;
+	width: 100%;
+	top: 0px;
+	left: 0px;
+	margin: 0px;
+	padding: 0px;
+	
+	z-index: -1;
+	position: relative;	/*	static | absolute | relative | fixed | inherit	*/	/*	sets the position of any elements contained within this element to be positioned relative to this element	*/
+	overflow: hidden; 	/*	visible | hidden | scroll | auto | inherit	*/
+	
+	background: transparent;
+	color: #555555;
+	
+	font-family: helvetica, arial, sans-serif;
+	font-size: 100%;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	
+/*	font-style: normal;	*/
+/*	font-variant: normal;	*/
+/*	font-weight: normal;	*/
+/*	font-lineHeight: 100%;	*/
+/* 	background-attachment: fixed;	/*	scroll | fixed | inherit	*/	*/
+/*	background-color: #000;  /* color (rgb(255, 255, 255), #000000, black; #FFFFFF, white) | transparent | inherit	*/	*/
+/*	background-origin: content-box;	/*	content-box | padding-box | border-box	*/	*/
+/*	background-repeat: no-repeat;		/*	repeat | repeat-x | repeat-y | no-repeat | inherit	*/	*/
+/*	background-position: center, top;	/*	{ horizontal [ <percentage> (0% is left, 100% is right) | <length> | left | center | right ] }, { vertical [ <percentage> (0% is top, 100% is bottom) | <length> | top | center | bottom ] } | inherit	*/	*/
+/*	background-size: 100%, 100%;	/*	{ width [ <percentage> | <length> | auto ] }, { height [ <percentage> | <length> | auto ] } | cover | contain	*/	*/
+/*	background-image: url ( images/background.png );	*/
+}
+
+
+/*	//////////////////////////////////////////////////	*/
+/*	////////////////////// FOG ///////////////////////	*/
+/*	//////////////////////////////////////////////////	*/
+
+#fog_left
+{
+	height: 100%;
+	width: 30%;
+	margin: 0% 0% 0% 0%;
+	padding: 0px;
+
+	position: fixed;
+	float: left;
+	z-index: 2;
+
+	background: transparent;
+}
+
+#fog_right
+{
+	height: 100%;
+	width: 30%;
+	margin: 0% 0% 0% 70%;
+	padding: 0px;
+	
+	position: fixed;
+	float: right;
+	z-index: 2;
+	
+	background: transparent;
+	
+	transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+	-moz-transform: scaleX(-1);
+	-o-transform: scaleX(-1);
+	filter: FlipH;
+	-ms-filter: "FlipH";
+}
+
+	
+/*	##################################################	*/
+/*	#################### CONTAINER ###################	*/
+/*	##################################################	*/
+
+.container
+{
+	width: 50%;
+	min-width: 1000px;
+	
+	margin: 0px auto;
+	padding: 0px;
+	border: 0px;	/*	none | dotted | dashed | solid | double | groove | ridge | inset | outset	*/
+	overflow: inherit;
+	
+	background: transparent;
+	position: relative;
+}
+
+
+/*	//////////////////////////////////////////////////	*/
+/*	/////////////////// NAVIGATION ///////////////////	*/
+/*	//////////////////////////////////////////////////	*/
+
+#navigation
+{
+	position: fixed;	/*	keeps the navigation bar fixed if the page moves	*/
+	min-width: 1000px;
+	
+	padding: 0px 20px 5px 20px;
+	
+	z-index: 10;
+	
+	font-size: 1.5em !important;
+	text-transform: uppercase;
+	text-decoration: none;
+	letter-spacing: 1px;
+	background-image: url(/images/background_header.png);
+	background-position: center, top;
+}
+	#navigation ul
+	{
+		list-style: none;
+	}
+	#navigation ul li
+	{
+		float: left;
+		display: inline-block;
+		text-shadow: 1px 1px 1px #333333;	/*	dark grey	*/
+		padding: 0px 0px 0px 20px;  /*	added to amount of space between each item in navigation_text	*/
+	}
+	#navigation ul li.active
+	{
+		color: #8C0000 !important;
+	}
+	
+	#navigation a,
+	#navigation a:focus,
+	#navigation a:visited
+	{
+		color: #FFA600;
+	}
+	#navigation a:hover,
+	#navigation a:active
+	{
+		color: #777777;
+	}
+
+	
+
+/*	//////////////////////////////////////////////////	*/
+/*	///////////////////// HEADER /////////////////////	*/
+/*	//////////////////////////////////////////////////	*/
+
+#header
+{
+	position: fixed;	/*	keeps the header bar fixed if the page moves	*/	
+	top: 20px;
+	left: 0px;
+	height: 200px;
+	width: 100%;
+	min-width: 1000px;
+	margin: 50px 0px 0px 0px;
+	padding: 0px 0px 5px 0px;
+	
+	z-index: 10;	/*	keeps the header bar on top of everything except fog	*/
+	
+	background-image: url(../../images/background_header.png);
+	background-position: center, top;
+	
+	clear: both;
+	overflow: inherit;
+}
+
+	#header .header_logo
+	{
+		display: inline;
+		float: left;
+		
+		height: 160px;
+		width: 200px;
+		margin: 0px 0px 0px 20px;
+		padding: 20px 20px 20px 20px;
+		
+		z-index: 11;
+	}
+	
+	#header .header_text
+	{
+		float: right;
+		margin: 120px 0px 0px 0px;
+		padding: 0px;
+		
+		z-index: 11;
+		
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		font-size: 20px !important;		
+	}
+	
+	#header .header_text li
+	{
+		display: inline;
+		margin: 0px;
+		padding: 10px; /*	added to amount of space between each item in header_text (x2, one for each side)	*/
+	}
+
+	#header .header_text li a
+	{
+		display: inline;
+		margin: 0px;
+		padding: 10px; /*	added to amount of space between each item in header_text (x2, one for each side)	*/
+		
+		font-family: helvetica, sans-serif;
+		font-size: 16px;
+		color: #777777;	/*	light grey	*/
+		text-shadow: 1px 1px 1px #333333;	/*	dark grey	*/
+		letter-spacing: 1px;
+		text-transform: uppercase;
+	}
+	
+	#header .header_text li a:hover
+	{
+		color: #FFFFFF;	/*	white	*/
+	}
+	
+	#header .header_text li.active a
+	{
+		color: #FFFFFF;	/*	white	*/
+		border-width: 6px 0px 0px 0px;	/*	same as "border-top: 6px"	*/
+		border-style: solid;
+		border-color: #e6b92d;	/*	gold bar at the top of the active tab	*/
+	}
+
+	
+/*	//////////////////////////////////////////////////	*/
+/*	///////////////////// FOOTER /////////////////////	*/
+/*	//////////////////////////////////////////////////	*/
+
+#footer
+{
+	position: relative;
+	bottom: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	min-width: 1000px;
+	
+	margin: 0px;
+	padding: 0px;
+	
+	clear: both;
+	overflow: inherit;
+	
+	z-index: 10;
+
+	background-image: url(../../images/background_footer.png);
+	background-position: center, bottom;
+	
+	border-top: 1px solid #333333;
+}
+
+	#footer .left_column
+	{
+		float: left;
+		text-align: center;
+		margin: 0px;
+		padding: 10px;
+	}
+
+	#footer .right_column
+	{
+		float: right;
+		text-align: center;
+		margin: 0px;
+		padding: 10px;
+	}
+	
+	#footer .footer_text
+	{
+		display: inline;
+		float: right;
+		padding: 0px;
+		margin: 0px 0px 0px 20px;	/*	amount of space between each item in footer_text (on left)	*/
+		
+		z-index: 11;
+
+		font-family: helvetica, sans-serif;
+		text-shadow: 1px 1px 1px #333333;	/*	dark grey	*/
+	}
+	
+	#footer .footer_text li
+	{
+		display: inline;
+		float: right;
+		padding: 0px 0px 0px 20px;
+		margin: 0px;	/*	amount of space between each item in footer_text (on left)	*/
+		
+		z-index: 11;
+
+		font-family: helvetica, sans-serif;
+		text-shadow: 1px 1px 1px #333333;	/*	dark grey	*/
+	}
+
+	#footer .footer_text li a
+	{
+		display: inline;
+		padding: 0px 0px 0px 20px;	/*	amount of space above each item in footer_text	*/
+		border-top: 6px solid #000000;	/*	black bar at the top of the inactive tabs	*/
+		
+		font-size: 14px;
+		color: #777777;	/*	light grey	*/
+		letter-spacing: 1px;
+		text-transform: uppercase;
+	}
+	
+	#footer .footer_text li a:hover
+	{
+		color: #FFFFFF;	/*	white	*/
+	}
+
+
+/*	##################################################	*/
+/*	##################### CONTENT ####################	*/
+/*	##################################################	*/
+
+.content
+{
+	height: 800px;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	position: relative;	/*	sets the position of any elements contained within this element to be positioned relative to this element	*/
+}
+
+.image
+{
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	height: auto;
+	width: auto;
+	max-width: 100%;
+	
+	border: 0px;
+	vertical-align: middle;
+	
+	-ms-interpolation-mode: bicubic;
+}
+
+/*	############# USED IN THE INDEX PAGE ############	*/
+
+.content #center_image
+{
+	height: auto;
+	vertical-align: center;
+	background: #CCCCCC;
+	padding: 0px;
+	margin: 0px;
+	border-bottom: 1px solid #333333;
+} 
+.content #index_top
+{
+	width: 1000px;
+	margin: 0px;
+	padding: 0px;
+	font: 95%/100% Verdana, Arial, Helvetica, sans-serif;
+	vertical-align: top;
+}
+.content #index_bottom
+{
+	width: 1000px;
+	margin: 0px;
+	padding: 0px;
+	font: 95%/100% Verdana, Arial, Helvetica, sans-serif;
+}
+.content #index_left 
+{
+	float: left;
+	width: 499px;
+	text-align: center;
+	padding: 0px 0px 5px 0px;
+}
+.content #index_right
+{
+	float: left;
+	width: 499px;
+	text-align: center;
+	padding: 0px 0px 5px 0px;
+	border-left: 1px solid #ccc;
+}
+
+
+/*	//////////////////////////////////////////////////	*/
+/*	////////// NON-SEMANTIC HELPER CLASSES ///////////	*/
+/*	//////////////////////////////////////////////////	*/
+
+.left
+{
+	float: left;
+}
+.right
+{
+	float: right;
+}
+
+.horizontal_flip
+{
+	transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+	-moz-transform: scaleX(-1);
+	-o-transform: scaleX(-1);
+	filter: FlipH;
+	-ms-filter: "FlipH";
+}
+.vertical_flip
+{
+	transform: scaleY(-1);
+	-webkit-transform: scaleY(-1);
+	-moz-transform: scaleY(-1);
+	-o-transform: scaleY(-1);
+	filter: FlipV;
+	-ms-filter: "FlipV";
+}
+
+.left_flip
+{
+	float: left;
+	
+	transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+	-moz-transform: scaleX(-1);
+	-o-transform: scaleX(-1);
+	filter: FlipH;
+	-ms-filter: "FlipH";
+}
+.right_flip
+{
+	float: right;
+	
+	transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+	-moz-transform: scaleX(-1);
+	-o-transform: scaleX(-1);
+	filter: FlipH;
+	-ms-filter: "FlipH";
+}
+
+/*	hide visually and from screenreaders (css-discuss.incutio.com/wiki/Screenreader_Visibility)	*/
+.hidden
+{
+	display: none;
+	visibility: hidden;
+}
+/*	hide visually and from screenreaders, but maintain layout	*/
+.invisible
+{
+	visibility: hidden;
+}
+
+/*	hide only visually, but have it available for screenreaders (www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden)	*/
+.visually_hidden
+{
+	position: absolute;
+	height: 1px;
+	width: 1px;
+	margin: -1px;
+	padding: 0px;
+	border: 0px;
+	clip: rect(0 0 0 0);
+	overflow: hidden;
+}
+/*	extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard (drupal.org/node/897638)	*/
+.visually_hidden.focusable: active,
+.visually_hidden.focusable: focus
+{
+	clip: auto;
+	height: auto;
+	margin: 0px;
+	overflow: visible;
+	position: static;
+	width: auto;
+}
+
+/*	clearfix: updated to prevent margin-collapsing on child elements in most situations (nicolasgallagher.com/micro-clearfix-hack/	*/
+.clearfix
+{
+	zoom: 1;
+}
+.clearfix: before
+{
+	content: "";
+	display: table;
+}
+.clearfix: after
+{
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/*	##################################################	*/
+/*	##################### STYLES #####################	*/
+/*	##################################################	*/
+
+a,
+a:link,
+a:hover,
+a:active,
+a:visited
+{
+	text-decoration: none;
+	outline: 0px;
+	
+	transition: color 0.2sec ease-in;	/*	internet explorer	*/
+	-webkit-transition: color 0.2sec ease-in;	/*	chrome / safari	*/
+	-moz-transition: color 0.2sec ease-in;	/*	mozilla	*/
+	-o-transition: color 0.2sec ease-in;	/*	opera	*/
+}
+
+h1
+{
+	font-size: 2em;  /* base font: 12px */
+	font-weight: bold;
+
+}
+h2
+{
+	font-size: 1.5em;
+}
+h3
+{
+	font-size: 1.2em;
+}
+
+
+/*	//////////////////////////////////////////////////	*/
+/*	////////////////// FONT STYLES ///////////////////	*/
+/*	//////////////////////////////////////////////////	*/
+
+.style_normal
+{
+	font-family: helvetica, sans-serif;
+	font-lineHeight: 100%;	/*	normal | <number> | <length> | <percentage> | inherit	*/
+	font-size: 100%;	/*	xx-small | x-small | small | medium | large | x-large | xx-large | smaller | larger | <length> | <percentage> | inherit	*/
+	font-style: normal;	/*	normal | italic | oblique | inherit	*/
+	font-variant: normal;	/*	normal | small-caps | inherit	*/
+	font-weight: normal;	/*	normal | lighter | bold | bolder | <number> (400 is normal, 700 is bold) | inherit	*/	
+}
+
+.style_bold
+{
+	font-weight: bold;
+}
+.style_italic
+{
+	font-style: italic;
+}
+.style_smallcaps
+{
+	font-variant: small-caps;
+}
+
+.style_black
+{
+	color: #000000;
+}
+.style_white
+{
+	color: #FFFFFF;
+}
+.style_darkgrey
+{
+	color: #343434;
+}
+
+.style1
+{
+	font-family: playbill, helvetica, sans-serif;
+}
+.style2
+{
+
+}
+.style3
+{
+
+}
+.style4
+{
+
+}
+.style5
+{
+
+}
+
+
+/*	##################################################	*/
+/*	############### AID FOR BLIND USERS ##############	*/
+/*	##################################################	*/
+
+#skip
+{
+	display: none;
+	position: absolute;
+	top: 0px;
+}
+
+
+/*	##################################################	*/
+/*	#################### CSS NOTES ###################	*/
+/*	##################################################	*/
+
+/*	XXXXX = FILL IN LATER	*/
+
+
+/*
+#client_logos{
+	margin-bottom:30px;
+	padding-left:51px;
+}
+#client_logos li{
+	display:inline;
+	float:left;
+	height:100px;
+	background: url(/images/landing/client-logos.png) -51px -100px no-repeat;
+	width:186px;
+}
+#client_logos li.careerOne{
+	background-position: -237px -100px;
+	width:180px;
+}
+#client_logos li.sgFleet{
+	background-position: -417px -100px;
+	width:147px;
+}
+#client_logos li.primo{
+	background-position: -564px -100px;
+	width:152px;
+}
+#client_logos li.meriton{
+	background-position: -716px -100px;
+	width:178px;
+}
+#client_logos li span{
+	display:block;
+	height:100px;
+	width:186px;
+	background:transparent url(/images/landing/client-logos.png) -51px 0 no-repeat;
+	transition: opacity .4s ease-in-out, background 0s 2012s; 
+	-webkit-transition: opacity .4s ease-in-out, background 0s 2012s; 
+	-moz-transition: opacity .4s ease-in-out, background 0s 2012s; 
+	-o-transition: opacity .4s ease-in-out, background 0s 2012s; 
+}
+#client_logos li.careerOne span{
+	background-position: -237px 0;
+	width:180px;
+}
+#client_logos li.sgFleet span{
+	background-position: -417px 0;
+	width:147px ;
+}
+#client_logos li.primo span{
+	background-position: -564px 0;
+	width:152px;
+}
+#client_logos li.meriton span{
+	background-position: -716px 0;
+	width:178px;
+}
+#client_logos li span:hover{
+	opacity:0;
+	background-position: -51px -100px;
+}
+#client_logos li.careerOne span:hover{
+	background-position: -237px -100px;
+}
+#client_logos li.sgFleet span:hover{
+	background-position: -417px -100px;
+}
+#client_logos li.primo span:hover{
+	background-position: -564px -100px;
+}
+#client_logos li.meriton span:hover{
+	background-position: -716px -100px;
+}
+
+
+FROM SNOWBIRD... THE PART THAT UNFOLDS THE SNOW REPORT?
+# mountain-report # mini-report.shading {
+	opacity : 1;
+	height : 350px;
+	position : absolute;
+	top : 0;
+	left : 0;
+	transition : opacity.15s linear;
+	-webkit-transition : opacity.15s linear;
+	-moz-transition : opacity.15s linear;
+	-ms-transition : opacity.15s linear;
+	-o-transition : opacity.15s linear;
+	
+	background : -moz-linear-gradient(left, rgba(0, 0, 0, 1)0, rgba(0, 0, 0, 0)100 % );
+	background : -webkit-gradient(linear, left top, right top, color-stop(0 % , rgba(0, 0, 0, 1)), color-stop(100 % , rgba(0, 0, 0, 0)));
+	background : -webkit-linear-gradient(left, rgba(0, 0, 0, 1)0, rgba(0, 0, 0, 0)100 % );
+	background : -o-linear-gradient(left, rgba(0, 0, 0, 1)0, rgba(0, 0, 0, 0)100 % );
+	background : -ms-linear-gradient(left, rgba(0, 0, 0, 1)0, rgba(0, 0, 0, 0)100 % );
+	background : linear-gradient(to right, rgba(0, 0, 0, 1)0, rgba(0, 0, 0, 0)100 % )
+}
+
+
+BUTTON
+	<style type="text/css">
+	.classname {
+	box-shadow: 0px 0px 0px 0px #ffffff;
+	-webkit-box-shadow: 0px 0px 0px 0px #ffffff;
+	-moz-box-shadow: 0px 0px 0px 0px #ffffff;
+
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e3a864), color-stop(1, #7d5320) );
+	background:-moz-linear-gradient( center top, #e3a864 5%, #7d5320 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e3a864', endColorstr='#7d5320');
+	background-color:#e3a864;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:6px;
+	border:1px solid #c8c8c8;
+	display:inline-block;
+	color:#000000;
+	font-family:arial;
+	font-size:54px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:1px 1px 5px #ad7c2d;
+	}
+	
+	.classname:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #7d5320), color-stop(1, #e3a864) );
+	background:-moz-linear-gradient( center top, #7d5320 5%, #e3a864 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#7d5320', endColorstr='#e3a864');
+	background-color:#7d5320;
+	}
+	
+	.classname:active {
+	position:relative;
+	top:1px;
+	}
+	
+	</style>
+*/
+

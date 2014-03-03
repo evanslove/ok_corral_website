@@ -1,0 +1,55 @@
+
+@font-face {
+    font-family: 'pblack';
+    src: url('/css/fonts/proximanova-black-webfont.eot');
+    src: url('/css/fonts/proximanova-black-webfont.eot?#iefix') format('embedded-opentype'),
+    	 url('/css/fonts/proximanova-black-webfont.svg#proxima_nova_blregular') format('svg'),
+         url('/css/fonts/proximanova-black-webfont.woff') format('woff'),
+         url('/css/fonts/proximanova-black-webfont.ttf') format('truetype');         
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'pbold';
+    src: url('/css/fonts/proximanova-bold-webfont.eot');
+    src: url('/css/fonts/proximanova-bold-webfont.eot?#iefix') format('embedded-opentype'),
+    	 url('/css/fonts/proximanova-bold-webfont.svg#proxima_nova_rgbold') format('svg'),
+         url('/css/fonts/proximanova-bold-webfont.woff') format('woff'),
+         url('/css/fonts/proximanova-bold-webfont.ttf') format('truetype');         
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'psbold';
+    src: url('/css/fonts/proximanova-semibold-webfont.eot');
+    src: url('/css/fonts/proximanova-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+    	 url('/css/fonts/proximanova-semibold-webfont.svg#proxima_nova_ltbold') format('svg'),
+         url('/css/fonts/proximanova-semibold-webfont.woff') format('woff'),
+         url('/css/fonts/proximanova-semibold-webfont.ttf') format('truetype');         
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'preg';
+    src: url('/css/fonts/proximanova-regular-webfont.eot');
+    src: url('/css/fonts/proximanova-regular-webfont.eot?#iefix') format('embedded-opentype'),
+    	 url('/css/fonts/proximanova-regular-webfont.svg#proxima_nova_rgregular') format('svg'),
+         url('/css/fonts/proximanova-regular-webfont.woff') format('woff'),
+         url('/css/fonts/proximanova-regular-webfont.ttf') format('truetype');         
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'plight';
+    src: url('/css/fonts/proximanova-light-webfont.eot');
+    src: url('/css/fonts/proximanova-light-webfont.eot?#iefix') format('embedded-opentype'),
+    	 url('/css/fonts/proximanova-light-webfont.svg#proxima_nova_rgregular') format('svg'),
+         url('/css/fonts/proximanova-light-webfont.woff') format('woff'),
+         url('/css/fonts/proximanova-light-webfont.ttf') format('truetype');         
+    font-weight: normal;
+    font-style: normal;
+}

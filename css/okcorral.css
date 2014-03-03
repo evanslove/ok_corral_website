@@ -1,0 +1,464 @@
+/* ################################################## */
+/* ################# O.K. Corral CSS ################ */
+/* ################################################## */
+
+
+/* ################################################## */
+/* ################## Global Styles ################# */
+/* ################################################## */
+
+html, body {
+	height: 100%;
+}
+
+body {
+	padding-top: 0px; /* body padding for fixed top nav */
+	min-width: 300px;
+	background-color: #FFE09F;
+}
+
+.container,
+.header-container,
+.footer-container
+ {
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: auto;
+	box-shadow: 0px 0px 50px 1px #000000;
+}
+
+.container {
+	margin-top: 50px
+}
+
+@media (min-width: 768px) {
+	.container,
+	.header-container,
+	.footer-container {
+		width: 750px;
+	}
+	.navbar-nav.navbar-right:last-child {
+		margin-right: 0px; // was -15px
+	}
+}
+@media (min-width: 992px) {
+	.container,
+	.header-container,
+	.footer-container {
+		width: 970px;
+	}
+}
+@media (min-width: 1200px) {
+	.container,
+	.header-container,
+	.footer-container {
+		width: 1170px;
+	}
+}
+
+
+/* ################################################## */
+/* ################## Header Styles ################# */
+/* ################################################## */
+
+#header {
+	z-index: 1000;
+	position: relative;
+	color: rgba(255,255,255,0.7);
+}
+
+.navbar {
+	z-index: 1001;
+	box-shadow: 0px 0px 50px 1px #000000;
+}
+
+.navbar-brand {
+	padding: 15px 15px;
+	font-size: 18px;
+	line-height: 20px;
+	
+	background-image: url('/media/images/ok_corral_logo.jpg');
+	background-size: 100% 100%;
+	box-shadow: 0px 0px 50px 1px #000000;
+
+	position: absolute;
+
+	margin-left: auto;
+	margin-right: auto;
+	padding: 15px;
+	
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 20px;
+	text-align: center;
+	
+	color: #777777;
+	-webkit-overflow-scrolling: auto;
+	
+	z-index: 10000;
+}
+
+.navbar-brand span {
+	display: none;
+}
+
+.navbar-brand:hover,
+.navbar-brand:focus {
+	color: #5e5e5e;
+	text-decoration: none;
+	background-color: transparent;
+}
+
+.mobile-header {
+    display: none;
+}
+
+@media (max-width: 767px) {
+	.navbar-brand {
+		height: 90px;
+		width: 110px;
+	}
+	
+	#myCarousel {
+		display: none;
+	}
+	
+}
+
+@media (min-width: 768px) {
+	.navbar {
+		border-radius: 0px;
+	}
+	.navbar-collapse {
+		width: auto;
+		border-top: 0;
+		box-shadow: none;
+	}
+	.navbar-collapse.collapse {
+		display: block !important;
+		height: auto !important;
+		padding-bottom: 0;
+		overflow: visible !important;
+	}
+	.navbar-collapse.in {
+		overflow-y: auto;
+	}
+	.navbar-collapse .navbar-nav.navbar-left:first-child {
+		margin-left: -15px;
+	}
+	.navbar-collapse .navbar-nav.navbar-right:last-child {
+		margin-top: 20px;
+	}
+	.navbar-collapse .navbar-text:last-child {
+		margin-right: 0;
+	}
+	.navbar-brand {
+		height: 130px;
+		width: 165px;
+	}
+}
+
+
+/* ################################################## */
+/* ################## Footer Styles ################# */
+/* ################################################## */
+
+#footer {
+	background-color: #400000;
+	border-color: #080808;
+	margin: 50px 0px 0px 0px;
+}
+
+.footer-text {
+	color: white;
+}
+
+.footer-menu {
+	float: right;
+}
+		
+
+#return-to-top {
+	position: fixed;
+	top: auto;
+	bottom: 0px;
+	left: auto;
+	right: 0px;
+	padding: 20px;
+	z-index: 1030;
+}
+
+
+/* ################################################## */
+/* ################### Page Styles ################## */
+/* ################################################## */
+
+/* Menu */
+
+.cbp-spmenu {
+    background: #47a3da; /* background */
+    position: fixed;
+}
+
+.cbp-spmenu h3 {
+    color: #afdefa; /* title */
+    font-size: 1.9em;
+    padding: 20px;
+    margin: 0;
+    font-weight: 300;
+    background: #0d77b6;
+}
+ 
+.cbp-spmenu a {
+    display: block; /* buttons */
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: 300;
+}
+ 
+.cbp-spmenu a:hover {
+    background: #258ecd; /* buttons hover */
+}
+ 
+.cbp-spmenu a:active {
+    background: #afdefa; /* buttons click */
+    color: #47a3da;
+}
+
+.cbp-spmenu-vertical {
+    width: 240px;	/* general menu layout */
+    height: 100%;
+    top: 0;
+    z-index: 1000;
+}
+ 
+.cbp-spmenu-vertical a {
+    border-bottom: 1px solid #258ecd;	/* button layout */
+    padding: 1em;
+}
+
+/* .cbp-spmenu-left {
+    left: -240px;
+}*/
+ 
+.cbp-spmenu-right {
+    right: -240px;
+}
+ 
+/*.cbp-spmenu-left.cbp-spmenu-open {
+    left: 0px;
+}*/
+ 
+.cbp-spmenu-right.cbp-spmenu-open {
+    right: 0px;
+}
+
+.cbp-spmenu-push {
+    overflow-x: hidden;
+    position: relative;
+    left: 0;
+}
+ 
+/*.cbp-spmenu-push-toright {
+    left: 240px;
+}*/
+ 
+.cbp-spmenu-push-toleft {
+    left: -240px;
+}
+
+.cbp-spmenu,
+.cbp-spmenu-push {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+/* General */
+
+.page-header {
+	margin: 30px 0 20px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #eeeeee;
+}
+
+.breadcrumb {
+	padding: 8px 15px;
+	margin-bottom: 20px;
+	list-style: none;
+	background-color: #FFFFFF;
+	border-radius: 4px;
+}
+.breadcrumb > li {
+	display: inline-block;
+}
+.breadcrumb > li + li:before {
+	padding: 0 5px;
+	color: #ccc;
+	content: "/\00a0";
+}
+.breadcrumb > .active {
+	color: #999;
+}
+
+.item,
+.active {
+	height: 100%;
+}
+
+.fill {
+	width: 100%;
+	height: 100%;
+	background-position: center;
+	background-size: cover;
+}
+
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+
+.clear {
+	clear: both;
+}
+
+.sidebar {
+	margin-top: 10px;
+}
+.sidebar ul {
+	border-radius: 5px;
+	padding: 5px;
+	border: 1px solid #cccccc;
+}
+
+.list-group-item-heading {
+	padding: 10px 0px 10px 10px;
+	clear: both;
+}
+
+.page-header {
+	clear: both;
+}
+
+/*
+@media (max-width: 767px) {
+	.page-header {
+		margin: 20px 0px 20px 150px;
+	}
+}
+@media (min-width: 768px) and (max-width: 991px) {
+	.page-header {
+		margin: 60px 0px 20px 200px;
+	}
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+	.page-header {
+		margin: 60px 0px 20px 200px;
+	}
+}
+@media (min-width: 1200px) {
+	.page-header {
+		margin: 70px 0px 30px 250px;
+	}
+}
+*/
+
+/* Index Page */
+
+
+
+.carousel {
+	height: 80%;
+}
+.carousel-inner {
+	height: 100%;
+}
+.carousel-caption {
+	position: absolute;
+	z-index: 10;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	color: #ffffff;
+	text-align: center;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+.carousel-caption-topleft {
+	right: 15%;
+	bottom: 60%;
+	left: 15%;
+}
+.carousel-caption-topright {
+	right: 15%;
+	bottom: 60%;
+	left: 45%;
+}
+.carousel-caption-bottomleft {
+	right: 15%;
+	bottom: 20%;
+	left: 15%;
+}
+.carousel-caption-bottomright {
+	right: 15%;
+	bottom: 20%;
+	left: 15%;
+}
+
+@media (max-width: 767px) {
+	.carousel {
+		height: 100%; /* increases the carousel height so it looks good on phones */
+	}
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+	
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+	
+}
+@media (min-width: 1200px) {
+	
+}
+@media (max-width: 767px) {
+	
+}
+
+/* 404 Page */
+
+.error-404 {
+	font-size: 8em;
+}
+
+
+/* ################################################## */
+/* ################ Additional Styles ############### */
+/* ################################################## */
+
+/* Social Icons Styles  */
+
+.list-social-icons {
+	margin-bottom: 45px;
+}
+
+.tooltip-social a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.facebook-link a:hover {
+	color: #3b5998;
+}
+
+.linkedin-link a:hover {
+	color: #007fb1;
+}
+
+.twitter-link a:hover {
+	color: #39a9e0;
+}
+
+.google-plus-link a:hover {
+	color: #d14836;
+}
