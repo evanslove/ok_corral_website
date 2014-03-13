@@ -3,35 +3,43 @@
 /* ################################################## */
 
 
+
 /* ################################################## */
 /* ################## Global Styles ################# */
 /* ################################################## */
 
-html, body {
+html,
+body {
 	height: 100%;
 }
-
 body {
-	padding-top: 0px; /* body padding for fixed top nav */
+	padding-top: 0px;
 	min-width: 300px;
 	background-color: #FFE09F;
 }
-
 .container,
 .header-container,
 .footer-container
- {
+{
 	padding-right: 15px;
 	padding-left: 15px;
 	margin-right: auto;
 	margin-left: auto;
 	box-shadow: 0px 0px 50px 1px #000000;
 }
-
 .container {
-	margin-top: 50px
+	margin-top: 50px;
 }
-
+.jPanelMenu-panel {
+	height: 100%; /* deleting this erases the carousel */
+	margin-top: 50px; /*increasing this a ton brings back the problem?? */
+	background-color: #FFE09F;
+}
+#jPanelMenu-menu {
+	margin-top: 50px;
+	background-color: #FFE09F;
+	color: #400000;
+}
 @media (min-width: 768px) {
 	.container,
 	.header-container,
@@ -39,7 +47,10 @@ body {
 		width: 750px;
 	}
 	.navbar-nav.navbar-right:last-child {
-		margin-right: 0px; // was -15px
+		margin-right: 0px; /* was -15px */
+	}
+	#jPanelMenu-menu {
+		display: none;
 	}
 }
 @media (min-width: 992px) {
@@ -63,16 +74,14 @@ body {
 /* ################################################## */
 
 #header {
-	z-index: 1000;
+	z-index: 100;
 	position: relative;
 	color: rgba(255,255,255,0.7);
 }
-
 .navbar {
-	z-index: 1001;
+	z-index: 101;
 	box-shadow: 0px 0px 50px 1px #000000;
 }
-
 .navbar-brand {
 	padding: 15px 15px;
 	font-size: 18px;
@@ -81,9 +90,7 @@ body {
 	background-image: url('/media/images/ok_corral_logo.jpg');
 	background-size: 100% 100%;
 	box-shadow: 0px 0px 50px 1px #000000;
-
 	position: absolute;
-
 	margin-left: auto;
 	margin-right: auto;
 	padding: 15px;
@@ -96,24 +103,20 @@ body {
 	color: #777777;
 	-webkit-overflow-scrolling: auto;
 	
-	z-index: 10000;
+	z-index: 100;
 }
-
 .navbar-brand span {
 	display: none;
 }
-
 .navbar-brand:hover,
 .navbar-brand:focus {
 	color: #5e5e5e;
 	text-decoration: none;
 	background-color: transparent;
 }
-
 .mobile-header {
     display: none;
 }
-
 @media (max-width: 767px) {
 	.navbar-brand {
 		height: 90px;
@@ -125,7 +128,6 @@ body {
 	}
 	
 }
-
 @media (min-width: 768px) {
 	.navbar {
 		border-radius: 0px;
@@ -165,26 +167,24 @@ body {
 /* ################################################## */
 
 #footer {
+	z-index: 1000;
 	background-color: #400000;
 	border-color: #080808;
 	margin: 50px 0px 0px 0px;
 }
-
 .footer-text {
 	color: white;
 }
-
 .footer-menu {
 	float: right;
 }
 		
-
 #return-to-top {
 	position: fixed;
 	top: auto;
 	bottom: 0px;
 	left: auto;
-	right: 0px;
+	right: 20px;
 	padding: 20px;
 	z-index: 1030;
 }
@@ -196,85 +196,6 @@ body {
 
 /* Menu */
 
-.cbp-spmenu {
-    background: #47a3da; /* background */
-    position: fixed;
-}
-
-.cbp-spmenu h3 {
-    color: #afdefa; /* title */
-    font-size: 1.9em;
-    padding: 20px;
-    margin: 0;
-    font-weight: 300;
-    background: #0d77b6;
-}
- 
-.cbp-spmenu a {
-    display: block; /* buttons */
-    color: #fff;
-    font-size: 1.1em;
-    font-weight: 300;
-}
- 
-.cbp-spmenu a:hover {
-    background: #258ecd; /* buttons hover */
-}
- 
-.cbp-spmenu a:active {
-    background: #afdefa; /* buttons click */
-    color: #47a3da;
-}
-
-.cbp-spmenu-vertical {
-    width: 240px;	/* general menu layout */
-    height: 100%;
-    top: 0;
-    z-index: 1000;
-}
- 
-.cbp-spmenu-vertical a {
-    border-bottom: 1px solid #258ecd;	/* button layout */
-    padding: 1em;
-}
-
-/* .cbp-spmenu-left {
-    left: -240px;
-}*/
- 
-.cbp-spmenu-right {
-    right: -240px;
-}
- 
-/*.cbp-spmenu-left.cbp-spmenu-open {
-    left: 0px;
-}*/
- 
-.cbp-spmenu-right.cbp-spmenu-open {
-    right: 0px;
-}
-
-.cbp-spmenu-push {
-    overflow-x: hidden;
-    position: relative;
-    left: 0;
-}
- 
-/*.cbp-spmenu-push-toright {
-    left: 240px;
-}*/
- 
-.cbp-spmenu-push-toleft {
-    left: -240px;
-}
-
-.cbp-spmenu,
-.cbp-spmenu-push {
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-}
-
 /* General */
 
 .page-header {
@@ -282,7 +203,6 @@ body {
 	padding-bottom: 10px;
 	border-bottom: 1px solid #eeeeee;
 }
-
 .breadcrumb {
 	padding: 8px 15px;
 	margin-bottom: 20px;
@@ -301,30 +221,25 @@ body {
 .breadcrumb > .active {
 	color: #999;
 }
-
 .item,
 .active {
 	height: 100%;
 }
-
 .fill {
 	width: 100%;
 	height: 100%;
 	background-position: center;
 	background-size: cover;
 }
-
 .left {
 	float: left;
 }
 .right {
 	float: right;
 }
-
 .clear {
 	clear: both;
 }
-
 .sidebar {
 	margin-top: 10px;
 }
@@ -333,12 +248,10 @@ body {
 	padding: 5px;
 	border: 1px solid #cccccc;
 }
-
 .list-group-item-heading {
 	padding: 10px 0px 10px 10px;
 	clear: both;
 }
-
 .page-header {
 	clear: both;
 }
@@ -367,8 +280,6 @@ body {
 */
 
 /* Index Page */
-
-
 
 .carousel {
 	height: 80%;
@@ -405,13 +316,11 @@ body {
 	bottom: 20%;
 	left: 15%;
 }
-
 @media (max-width: 767px) {
 	.carousel {
 		height: 100%; /* increases the carousel height so it looks good on phones */
 	}
 }
-
 @media (min-width: 768px) and (max-width: 991px) {
 	
 }
@@ -441,24 +350,20 @@ body {
 .list-social-icons {
 	margin-bottom: 45px;
 }
-
 .tooltip-social a {
 	text-decoration: none;
 	color: inherit;
 }
-
 .facebook-link a:hover {
 	color: #3b5998;
 }
-
 .linkedin-link a:hover {
 	color: #007fb1;
 }
-
 .twitter-link a:hover {
 	color: #39a9e0;
 }
-
 .google-plus-link a:hover {
 	color: #d14836;
 }
+
