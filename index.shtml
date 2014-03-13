@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+	<head>
+
+		<title>O.K. Corral Gunfight Site, Tombstone AZ: Home</title>
+		
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="The O.K. Corral is the famous historical site in Tombstone, Arizona, where Wyatt Earp, Doc Holliday, Virgil and Morgan Earp fought the Clantons and McLaurys on October 26, 1881.">
+		<meta name="keywords" content="O.K. Corral, OK Corral, Gunfight at the O.K. Corral, Gunfight site, Wyatt Earp, Doc Holliday, Tombstone Arizona, Tombstone, Arizona, Epitaph, Tombstone Epitaph, Historama, Old West, C.S. Fly, Geronimo, Clanton, McLaury, Cowboys">
+		<meta name="author" content="Evans Love">
+
+		<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+
+		<!-- css files -->
+		<link href="/css/bootstrap.css" rel="stylesheet">
+		<link href="/css/font-awesome.css" rel="stylesheet">
+		<link href="/css/okcorral.css" rel="stylesheet">
+		
+		<!-- for open graph -->
+		<meta property="og:title" content="O.K. Corral, Tombstone, AZ" />
+		<meta property="og:url" content="http://www.okcorral.org/" />
+		<meta property="og:type" content="landmark" />
+		<meta property="og:image" content="http://www.okcorral.org/images/ok_corral_logo.png" />
+		<meta property="og:site_name" content="O.K. Corral, Tombstone, AZ" />
+		<meta property="og:description" content="The O.K. Corral is the famous historical site in Tombstone, Arizona, where Wyatt Earp, Doc Holliday, Virgil and Morgan Earp fought the Clantons and McLaurys on October 26, 1881." />
+		<meta property="og:locale" content="en_US" />
+		
+	</head>
+
+	<body>
+
+		<!--#include virtual="/include/header.html" -->
+		
+		<div id="myCarousel" class="carousel slide">
+		
+			<!-- indicators -->
+			<ol class="carousel-indicators">
+				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+			</ol>
+
+			<!-- wrapper for slides -->
+			<div class="carousel-inner">
+				<div class="item active">
+					<div class="fill" style="background-image:url('/media/images/promotional_photos/P1000942.JPG');"></div>
+					<div class="carousel-caption carousel-caption-topleft">
+						<!--<h1>Tour the world's most famous gunfight sight...</h1> -->
+					</div>
+				</div>
+				<div class="item">
+					<div class="fill" style="background-image:url('/media/images/promotional_photos/P1000692.JPG');"></div>
+					<div class="carousel-caption carousel-caption-topright">
+						<!--<h1>Walk where they fell...</h1> -->
+					</div>
+				</div>
+				<div class="item">
+					<div class="fill" style="background-image:url('/media/images/promotional_photos/P1000691.JPG');"></div>
+					<div class="carousel-caption carousel-caption-bottomleft">
+						<!--<h1>Relive the history...</h1> -->
+					</div>
+				</div>
+			</div>
+
+			<!-- controls -->
+			<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+				<span class="icon-prev"></span>
+			</a>
+			<a class="right carousel-control" href="#myCarousel" data-slide="next">
+				<span class="icon-next"></span>
+			</a>
+			
+		</div>
+
+		<div class="container">
+			
+			<div class="row">
+
+				<div class="col-lg-12 text-center">
+				
+					<h2>Three Historic Attractions</h2>
+					<hr>
+					
+				</div>
+				
+				<div class="col-lg-4 col-md-4 col-sm-12">
+				
+					<a href="/corral.shtml" class="thumbnail">
+						<img src='/media/images/promotional_photos/P1000790.JPG' alt="O.K. Corral Gunfight">
+					</a>
+					
+					<div class="caption">
+						<h3>O.K. Corral</h3>
+						<p>See Wyatt Earp, Doc Holliday, Virgil and Morgan Earp fight the McLaurys and Clantons in a daily 2 pm reenactment inside the O.K. Corral &copy;</p>
+						<p>Stand beside life-size figures of the eight gunfighters located on the very spot where the Gunfight began according to a map on display drawn by Wyatt Earp himself.</p>
+						<p>Hear what caused the 30-second showdown that left three cowboys dead, Virgil and Morgan Earp wounded.</p>
+						<p>Tour C.S. Fly's Photo Gallery. See his world-famous photos of the Apache warrior Geronimo, and his historic photos of 1880s Tombstone life.</p>
+						<p>Walk through the O.K. Corral &copy; as it appeared in the 1880s.</p>
+					</div>	
+					
+				</div>
+				
+				<div class="col-lg-4 col-md-4 col-sm-12">
+				
+					<a href="/historama.shtml" class="thumbnail">
+						<img src='/media/images/promotional_photos/P1000964.JPG' alt="Tombstone Historama">
+					</a>
+					
+					<div class="caption">
+						<h3>Tombstone Historama</h3>
+						<p>Witness the dramatic events that made Tombstone famous: the silver boom, the great fire, the O.K. Corral &copy; gunfight, the assassination of Morgan Earp, and more. Actor Vincent Price narrates this exciting multimedia history of Tombstone from Geronimo's Apaches to modern times.</p>
+						<p>Shows Daily every 30 minutes, 9:30 am to 4:30 pm.</p>
+						<p>Theater located next to the O.K. Corral.</p>
+						<p>Admission included with O.K. Corral ticket.</p>
+					</div>	
+					
+				</div>
+				
+				<div class="col-lg-4 col-md-4 col-sm-12">
+				
+					<a href="http://www.tombstoneepitaph.com/" class="thumbnail">
+						<img src='/media/images/promotional_photos/P1000699.JPG' alt="Tombstone Epitaph">
+					</a>
+					
+					<div class="caption">
+						<h3>Tombstone Epitaph</h3>
+						<p>FREE! Visit the 1880s museum of Arizona's oldest newspaper.</p>
+						<p>Read original 1881 reports of the Gunfight at the O.K. Corral®. Free reprint with your O.K. Corral ticket.</p>
+						<p>Learn how Epitaph editor, John Clum, captured the Apache warrior Geronimo and why he hired the Earps to defend Tombstone.</p>
+						<p>See how The Epitaph® was printed on the original press in the 1880s.</p>
+					</div>	
+					
+				</div>
+				
+			</div><!-- /.row -->
+
+		</div><!-- /.container -->
+
+		<!--#include virtual="/include/footer.html" -->
+
+		<!-- javascript placed at the end of the document so the pages load faster -->
+		<script src="/js/jquery.js"></script>
+		<script src="/js/bootstrap.js"></script>
+		<script src="/js/okcorral.js"></script>
+		
+	</body>
+	
+</html>
