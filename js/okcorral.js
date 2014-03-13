@@ -6,261 +6,591 @@
  *
  * ########################################################################
  * ######################################################################## */
+ 
+ 
+/* ========================================================================
+ * jQuery Plugin: jpanelmenu.js v1.3.0
+ * http://jpanelmenu.com
+ * ========================================================================
+ * By Anthony Colangelo (http://acolangelo.com)
+ * ======================================================================== */
 
-// jQuery function that makes sure the DOM is loaded before running any JavaScript
-$(document).ready(function(){
++function ($) {
+	$.jPanelMenu = function (options) {
+		if ( typeof (options) == "undefined" || options == null ) { options = {}; };
 
+		var jP = {
+			options: $.extend({
+				menu: '#menu',
+				trigger: '.menu-trigger',
+				excludedPanelContent: 'style, script',
+
+				direction: 'left',
+				openPosition: '250px',
+				animated: true,
+				closeOnContentClick: true,
+
+				keyboardShortcuts: [
+					{
+						code: 27,
+						open: false,
+						close: true 
+					},
+					{
+						code: 37,
+						open: false,
+						close: true 
+					},
+					{
+						code: 39,
+						open: true,
+						close: true 
+					},
+					{
+						code: 77,
+						open: true,
+						close: true 
+					}
+				],
+
+				duration: 150,
+				openDuration: options.duration || 150,
+				closeDuration: options.duration || 150,
+
+				easing: 'ease-in-out',
+				openEasing: options.easing || 'ease-in-out',
+				closeEasing: options.easing || 'ease-in-out',
+
+				before: function(){ },
+				beforeOpen: function(){ },
+				beforeClose: function(){ },
+
+				after: function(){ },
+				afterOpen: function(){ },
+				afterClose: function(){ },
+
+				beforeOn: function(){ },
+				afterOn: function(){ },
+
+				beforeOff: function(){ },
+				afterOff: function(){ }
+			},options),
+
+			settings: {
+				transitionsSupported:	'WebkitTransition' in document.body.style ||
+										'MozTransition' in document.body.style ||
+										'msTransition' in document.body.style ||
+										'OTransition' in document.body.style ||
+										'Transition' in document.body.style
+				,
+				shiftFixedChildren: false,
+				panelPosition: 'relative',
+				positionUnits: 'px'
+			},
+
+			menu: '#jPanelMenu-menu',
+
+			panel: '.jPanelMenu-panel',
+
+			fixedChildren: [],
+
+			timeouts: {},
+
+			clearTimeouts: function() {
+				clearTimeout(jP.timeouts.open);
+				clearTimeout(jP.timeouts.afterOpen);
+				clearTimeout(jP.timeouts.afterClose);
+			},
+
+			setPositionUnits: function() {
+				var foundUnit = false,
+					allowedUnits = ['%','px','em']
+				;
+
+				for ( unitID in allowedUnits ) {
+					var unit = allowedUnits[unitID];
+					if ( jP.options.openPosition.toString().substr(-unit.length) == unit )
+					{
+						foundUnit = true;
+						jP.settings.positionUnits = unit;
+					}
+				}
+
+				if ( !foundUnit ) { jP.options.openPosition = parseInt(jP.options.openPosition) + jP.settings.positionUnits }
+			},
+
+			checkFixedChildren: function() {
+				jP.disableTransitions();
+
+				var defaultPanelStyle = { position: $(jP.panel).css('position') };
+
+				defaultPanelStyle[jP.options.direction] = ($(jP.panel).css(jP.options.direction) == 'auto')?0:$(jP.panel).css(jP.options.direction);
+
+				$(jP.panel).find('> *').each(function(){
+					if ( $(this).css('position') == 'fixed' && $(this).css(jP.options.direction) == 'auto' ) { jP.fixedChildren.push(this); }
+				});
+				
+				if ( jP.fixedChildren.length > 0 )
+				{
+					var newPanelStyle = { position: 'relative' };
+					newPanelStyle[jP.options.direction] = '1px';
+					jP.setPanelStyle(newPanelStyle);
+
+					if ( parseInt($(jP.fixedChildren[0]).offset().left) == 0 ) { jP.settings.shiftFixedChildren = true; }
+				}
+
+				jP.setPanelStyle(defaultPanelStyle);
+			},
+
+			setjPanelMenuStyles: function() {
+				var bgColor = '#fff';
+				var htmlBG = $('html').css('background-color');
+				var bodyBG = $('body').css('background-color');
+
+				if ( bodyBG != 'transparent' && bodyBG != "rgba(0, 0, 0, 0)") { bgColor = bodyBG; }
+				else if ( htmlBG != 'transparent' && htmlBG != "rgba(0, 0, 0, 0)") { bgColor = htmlBG; }
+				else { bgColor = '#fff'; }
+
+				if ( $('#jPanelMenu-style-master').length == 0 )
+				{
+					$('body').append('<style id="jPanelMenu-style-master">body{width:100%}.jPanelMenu,body{overflow-x:hidden}#jPanelMenu-menu{display:block;position:fixed;top:0;'+jP.options.direction+':0;height:100%;z-index:-1;overflow-x:hidden;overflow-y:scroll;-webkit-overflow-scrolling:touch}.jPanelMenu-panel{position:static;'+jP.options.direction+':0;top:0;z-index:2;width:100%;min-height:100%;background:' + bgColor + '}</style>');
+				}
+			},
+
+			setMenuState: function(open) {
+				var position = (open)?'open':'closed';
+				$('body').attr('data-menu-position', position);
+			},
+
+			getMenuState: function() {
+				return $('body').attr('data-menu-position');
+			},
+
+			menuIsOpen: function() {
+				if ( jP.getMenuState() == 'open' ) return true;
+				else return false;
+			},
+
+			setMenuStyle: function(styles) {
+				$(jP.menu).css(styles);
+			},
+
+			setPanelStyle: function(styles) {
+				$(jP.panel).css(styles);
+			},
+
+			showMenu: function() {
+				jP.setMenuStyle({
+					display: 'block'
+				});
+				jP.setMenuStyle({
+					'z-index': '1'
+				});
+			},
+
+			hideMenu: function() {
+				jP.setMenuStyle({
+					'z-index': '-1'
+				});
+				jP.setMenuStyle({
+					display: 'none'
+				});
+			},
+
+			enableTransitions: function(duration, easing) {
+				var formattedDuration = duration/1000;
+				var formattedEasing = jP.getCSSEasingFunction(easing);
+				jP.disableTransitions();
+				$('body').append('<style id="jPanelMenu-style-transitions">.jPanelMenu-panel{-webkit-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -moz-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -o-transition: all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
+			},
+
+			disableTransitions: function() {
+				$('#jPanelMenu-style-transitions').remove();
+			},
+
+			enableFixedTransitions: function(selector, id, duration, easing) {
+				var formattedDuration = duration/1000;
+				var formattedEasing = jP.getCSSEasingFunction(easing);
+				jP.disableFixedTransitions(id);
+				$('body').append('<style id="jPanelMenu-style-fixed-' + id + '">' + selector + '{-webkit-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -moz-transition: all ' + formattedDuration + 's ' + formattedEasing + '; -o-transition: all ' + formattedDuration + 's ' + formattedEasing + '; transition: all ' + formattedDuration + 's ' + formattedEasing + ';}</style>');
+			},
+
+			disableFixedTransitions: function(id) {
+				$('#jPanelMenu-style-fixed-' + id).remove();
+			},
+
+			getCSSEasingFunction: function(name) {
+				switch ( name )
+				{
+					case 'linear':
+						return name;
+						break;
+
+					case 'ease':
+						return name;
+						break;
+
+					case 'ease-in':
+						return name;
+						break;
+
+					case 'ease-out':
+						return name;
+						break;
+
+					case 'ease-in-out':
+						return name;
+						break;
+
+					default:
+						return 'ease-in-out';
+						break;
+				}
+			},
+
+			getJSEasingFunction: function(name) {
+				switch ( name )
+				{
+					case 'linear':
+						return name;
+						break;
+
+					default:
+						return 'swing';
+						break;
+				}
+			},
+
+			openMenu: function(animated) {
+				if ( typeof(animated) == "undefined" || animated == null ) { animated = jP.options.animated };
+				
+				jP.clearTimeouts();
+
+				jP.options.before();
+				jP.options.beforeOpen();
+
+				jP.setMenuState(true);
+
+				jP.setPanelStyle({ position: 'relative' });
+				
+				jP.showMenu();
+
+				var animationChecks = {
+					none: (!animated)?true:false,
+					transitions: (animated && jP.settings.transitionsSupported)?true:false
+				};
+
+				if ( animationChecks.transitions || animationChecks.none ) {
+					if ( animationChecks.none ) jP.disableTransitions();
+					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.openDuration, jP.options.openEasing);
+
+					var newPanelStyle = {};
+					newPanelStyle[jP.options.direction] = jP.options.openPosition;
+					jP.setPanelStyle(newPanelStyle);
+
+					if ( jP.settings.shiftFixedChildren )
+					{
+						$(jP.fixedChildren).each(function(){
+							var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
+								selector = id.replace(' ','.'),
+								id = id.replace(' ','-')
+							;
+
+							if ( animationChecks.none ) jP.disableFixedTransitions(id);
+							if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.openDuration, jP.options.openEasing);
+
+							var newChildrenStyle = {};
+							newChildrenStyle[jP.options.direction] = jP.options.openPosition;
+							$(this).css(newChildrenStyle);
+						});
+					}
+
+					jP.timeouts.afterOpen = setTimeout(function(){
+						jP.disableTransitions();
+						if ( jP.settings.shiftFixedChildren )
+						{
+							$(jP.fixedChildren).each(function(){
+								var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
+									id = id.replace(' ','-')
+								;
+
+								jP.disableFixedTransitions(id);
+							});
+						}
+
+						jP.options.after();
+						jP.options.afterOpen();
+						jP.initiateContentClickListeners();
+					}, jP.options.openDuration);
+				}
+				else {
+					var formattedEasing = jP.getJSEasingFunction(jP.options.openEasing);
+
+					var animationOptions = {};
+					animationOptions[jP.options.direction] = jP.options.openPosition;
+					$(jP.panel).stop().animate(animationOptions, jP.options.openDuration, formattedEasing, function(){
+						jP.options.after();
+						jP.options.afterOpen();
+						jP.initiateContentClickListeners();
+					});
+
+					if ( jP.settings.shiftFixedChildren )
+					{
+						$(jP.fixedChildren).each(function(){
+							var childrenAnimationOptions = {};
+							childrenAnimationOptions[jP.options.direction] = jP.options.openPosition;
+							$(this).stop().animate(childrenAnimationOptions, jP.options.openDuration, formattedEasing);
+						});
+					}
+				}
+			},
+
+			closeMenu: function(animated) {
+				if ( typeof(animated) == "undefined" || animated == null ) { animated = jP.options.animated };
+
+				jP.clearTimeouts();
+
+				jP.options.before();
+				jP.options.beforeClose();
+
+				jP.setMenuState(false);
+
+				var animationChecks = {
+					none: (!animated)?true:false,
+					transitions: (animated && jP.settings.transitionsSupported)?true:false
+				};
+
+				if ( animationChecks.transitions || animationChecks.none ) {
+					if ( animationChecks.none ) jP.disableTransitions();
+					if ( animationChecks.transitions ) jP.enableTransitions(jP.options.closeDuration, jP.options.closeEasing);
+
+					var newPanelStyle = {};
+					newPanelStyle[jP.options.direction] = 0 + jP.settings.positionUnits;
+					jP.setPanelStyle(newPanelStyle);
+
+					if ( jP.settings.shiftFixedChildren )
+					{
+						$(jP.fixedChildren).each(function(){
+							var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
+								selector = id.replace(' ','.'),
+								id = id.replace(' ','-')
+							;
+
+							if ( animationChecks.none ) jP.disableFixedTransitions(id);
+							if ( animationChecks.transitions ) jP.enableFixedTransitions(selector, id, jP.options.closeDuration, jP.options.closeEasing);
+
+							var newChildrenStyle = {};
+							newChildrenStyle[jP.options.direction] = 0 + jP.settings.positionUnits;
+							$(this).css(newChildrenStyle);
+						});
+					}
+
+					jP.timeouts.afterClose = setTimeout(function(){
+						jP.setPanelStyle({ position: jP.settings.panelPosition });
+
+						jP.disableTransitions();
+						if ( jP.settings.shiftFixedChildren )
+						{
+							$(jP.fixedChildren).each(function(){
+								var id = $(this).prop("tagName").toLowerCase() + ' ' + $(this).attr('class'),
+									id = id.replace(' ','-')
+								;
+
+								jP.disableFixedTransitions(id);
+							});
+						}
+
+						jP.hideMenu();
+						jP.options.after();
+						jP.options.afterClose();
+						jP.destroyContentClickListeners();
+					}, jP.options.closeDuration);
+				}
+				else {
+					var formattedEasing = jP.getJSEasingFunction(jP.options.closeEasing);
+
+					var animationOptions = {};
+					animationOptions[jP.options.direction] = 0 + jP.settings.positionUnits;
+					$(jP.panel).stop().animate(animationOptions, jP.options.closeDuration, formattedEasing, function(){
+						jP.setPanelStyle({ position: jP.settings.panelPosition });
+
+						jP.hideMenu();
+						jP.options.after();
+						jP.options.afterClose();
+						jP.destroyContentClickListeners();
+					});
+
+					if ( jP.settings.shiftFixedChildren )
+					{
+						$(jP.fixedChildren).each(function(){
+							var childrenAnimationOptions = {};
+							childrenAnimationOptions[jP.options.direction] = 0 + jP.settings.positionUnits;
+							$(this).stop().animate(childrenAnimationOptions, jP.options.closeDuration, formattedEasing);
+						});
+					}
+				}
+			},
+
+			triggerMenu: function(animated) {
+				if ( jP.menuIsOpen() ) jP.closeMenu(animated);
+				else jP.openMenu(animated);
+			},
+
+			initiateClickListeners: function() {
+				$(document).on('click',jP.options.trigger,function(){ jP.triggerMenu(jP.options.animated); return false; });
+			},
+
+			destroyClickListeners: function() {
+				$(document).off('click',jP.options.trigger,null);
+			},
+
+			initiateContentClickListeners: function() {
+				if ( !jP.options.closeOnContentClick ) return false;
+
+				$(document).on('click',jP.panel,function(e){
+					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
+				});
+				
+				$(document).on('touchend',jP.panel,function(e){
+					if ( jP.menuIsOpen() ) jP.closeMenu(jP.options.animated);
+				});
+			},
+
+			destroyContentClickListeners: function() {
+				if ( !jP.options.closeOnContentClick ) return false;
+
+				$(document).off('click',jP.panel,null);
+				$(document).off('touchend',jP.panel,null);
+			},
+
+			initiateKeyboardListeners: function() {
+				var preventKeyListeners = ['input', 'textarea'];
+				$(document).on('keydown',function(e){
+					var target = $(e.target),
+					prevent = false;
+					$.each(preventKeyListeners, function(){
+						if (target.is(this.toString())) { prevent = true; }
+					});
+					if ( prevent ) { return true; }
+
+					for ( mapping in jP.options.keyboardShortcuts ) {
+						if ( e.which == jP.options.keyboardShortcuts[mapping].code )
+						{
+							var key = jP.options.keyboardShortcuts[mapping];
+
+							if ( key.open && key.close ) { jP.triggerMenu(jP.options.animated); }
+							else if ( (key.open && !key.close) && !jP.menuIsOpen() ) { jP.openMenu(jP.options.animated); }
+							else if ( (!key.open && key.close) && jP.menuIsOpen() ) { jP.closeMenu(jP.options.animated); }
+
+							return false;
+						}
+					}
+				});
+			},
+
+			destroyKeyboardListeners: function() {
+				$(document).off('keydown',null);
+			},
+
+			setupMarkup: function() {
+				$('html').addClass('jPanelMenu');
+				$('body > *').not(jP.menu + ', ' + jP.options.excludedPanelContent).wrapAll('<div class="' + jP.panel.replace('.','') + '"/>');
+				$(jP.options.menu).clone().attr('id', jP.menu.replace('#','')).insertAfter('body > ' + jP.panel);
+			},
+
+			resetMarkup: function() {
+				$('html').removeClass('jPanelMenu');
+				$('body > ' + jP.panel + ' > *').unwrap();
+				$(jP.menu).remove();
+			},
+
+			init: function() {
+				jP.options.beforeOn();
+
+				jP.initiateClickListeners();
+				if ( Object.prototype.toString.call(jP.options.keyboardShortcuts) === '[object Array]' ) { jP.initiateKeyboardListeners(); }
+
+				jP.setjPanelMenuStyles();
+				jP.setMenuState(false);
+				jP.setupMarkup();
+
+				jP.setMenuStyle({ width: jP.options.openPosition });
+
+				jP.checkFixedChildren();
+				jP.setPositionUnits();
+
+				jP.closeMenu(false);
+
+				jP.options.afterOn();
+			},
+
+			destroy: function() {
+				jP.options.beforeOff();
+
+				jP.closeMenu();
+				jP.destroyClickListeners();
+				if ( Object.prototype.toString.call(jP.options.keyboardShortcuts) === '[object Array]' ) { jP.destroyKeyboardListeners(); }
+
+				jP.resetMarkup();
+				var childrenStyles = {};
+				childrenStyles[jP.options.direction] = 'auto';
+				$(jP.fixedChildren).each(function(){ $(this).css(childrenStyles); });
+				jP.fixedChildren = [];
+
+				jP.options.afterOff();
+			}
+		};
+
+		return {
+			on: jP.init,
+			off: jP.destroy,
+			trigger: jP.triggerMenu,
+			open: jP.openMenu,
+			close: jP.closeMenu,
+			isOpen: jP.menuIsOpen,
+			menu: jP.menu,
+			getMenu: function() { return $(jP.menu); },
+			panel: jP.panel,
+			getPanel: function() { return $(jP.panel); }
+		};
+	};
+}(jQuery);
+
+ 
+/* ========================================================================
+ * O.K. Corral: JavaScript Functions
+ * ========================================================================
+ * By Evans Love
+ * ======================================================================== */
+
++function ($) {
 	'use strict';
 	
 	// Activates the Carousel
-	$('.carousel').carousel( {
+	$('.carousel').carousel({
 		interval: 10000
 	}
 	);
 	
-	// Activates the Affix
-	$('.navbar').affix({
-		offset: { top: $('#nav').offset().top }
-	});​
-	
-	// Activates focus for '[placeholder]'
-	$('[placeholder]').focus( function () {
-		var input = $(this);
-		if (input.val() === input.attr('placeholder')) {
-			if (this.originalType) {
-				this.type = this.originalType;
-				delete this.originalType;
+	// Activates the jPanelMenu
+	var jPM_target	= $('[data-toggle=jpanel-menu]')
+	var jPM_menu	= $.jPanelMenu( {
+		menu: jPM_target.data('target'),
+		direction: 'left',
+		trigger: '.' + jPM_target.attr('class'),
+		duration: 300,
+		excludedPanelContent: '.jpanel-menu-exclude',
+		openPosition: '250px',
+		afterOpen: function () {
+			jPM_target.addClass('open');
+			$('html').addClass('jpanel-menu-open');
+			},
+		afterClose: function () {
+			jPM_target.removeClass('open');
+			$('html').removeClass('jpanel-menu-open');
 			}
-			input.val('');
-			input.removeClass('placeholder');
-		}
-	}
-	);
+		})
+	jPM_menu.on();
 	
-	// Activates blur for '[placeholder]'
-	$('[placeholder]').blur( function () {
-		var input = $(this);
-		if (input.val() === '') {
-			input.addClass('placeholder');
-			input.val(input.attr('placeholder'));
-		}
-	}
-	);
-	
-	$('[placeholder]').blur();
-	
-	
-	$('[data-page-class]').each(function () {
-		$('html').addClass($(this).data('page-class'));
-	}
-	);
-	
-	// show-hide
-	$(".show-hide").each(function () {
-        $(this).click(function () {
-            var state = 'open';
-            var target = $(this).attr('data-target');
-            var targetState = $(this).attr('data-target-state');
-            if (typeof targetState !== 'undefined' && targetState !== false) {
-                state = targetState;
-            }
-            if (state === 'undefined') {
-                state = 'open';
-            }
-            $(target).toggleClass('show-hide-' + state);
-            $(this).toggleClass(state);
-        }
-        );
-    }
-    );
-	
-	// jPanelMenu
-	if ($.jPanelMenu && $('[data-toggle=jpanel-menu]').size() > 0) {
-		var t = $('[data-toggle=jpanel-menu]'), n = $.jPanelMenu( {
-			menu : t.data('target'), direction : 'left', trigger : '.' + t.attr('class'), excludedPanelContent : '.jpanel-menu-exclude', openPosition : '280px', afterOpen : function () {
-				t.addClass('open');
-				$('html').addClass('jpanel-menu-open');
-			}
-			, afterClose : function () {
-				t.removeClass('open');
-				$('html').removeClass('jpanel-menu-open');
-			}
-		}
-		), r = jRespond([ {
-			label : 'small', enter : 0, exit : 1010;
-		}
-		]);
-		r.addFunc( {
-			breakpoint : 'small', enter : function () {
-				n.on();
-			}
-			, exit : function () {
-				n.off();
-			}
-		}
-		);
-	};
-	
-	// flexslider
-	$('.flexslider').each(function () {
-		var sliderSettings = {
-			animation : $(this).attr('data-transition'), selector : '.slides > .slide', controlNav :!0, smoothHeight :!0, start : function (sliderSettings) {
-				sliderSettings.find('[data-animate-in]').each(function () {
-					$(this).css('visibility', 'hidden');
-				}
-				);
-				sliderSettings.find('.slide-bg').each(function () {
-					$(this).css( {
-						'background-image' : 'url(' + $(this).data('bg-img') + ')';
-					}
-					);
-					$(this).css('visibility', 'visible').addClass('animated').addClass($(this).data('animate-in'));
-				}
-				);
-				sliderSettings.find('.slide').eq(1).find('[data-animate-in]').each(function () {
-					$(this).css('visibility', 'hidden');
-					$(this).data('animate-delay') && $(this).addClass($(this).data('animate-delay'));
-					$(this).data('animate-duration') && $(this).addClass($(this).data('animate-duration'));
-					$(this).css('visibility', 'visible').addClass('animated').addClass($(this).data('animate-in'));
-					$(this).one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function () {
-						$(this).removeClass($(this).data('animate-in'));
-					}
-					);
-				}
-				);
-			}
-			, before : function (sliderSettings) {
-				sliderSettings.find('.slide-bg').each(function () {
-					$(this).removeClass($(this).data('animate-in')).removeClass('animated').css('visibility', 'hidden');
-				}
-				);
-				sliderSettings.find('.slide').eq(sliderSettings.animatingTo + 1).find('[data-animate-in]').each(function () {
-					$(this).css('visibility', 'hidden');
-				}
-				);
-			}
-			, after : function (sliderSettings) {
-				sliderSettings.find('.slide').find('[data-animate-in]').each(function () {
-					$(this).css('visibility', 'hidden');
-				}
-				);
-				sliderSettings.find('.slide').eq(sliderSettings.animatingTo + 1).find('[data-animate-in]').each(function () {
-					$(this).data('animate-delay') && $(this).addClass($(this).data('animate-delay'));
-					$(this).data('animate-duration') && $(this).addClass($(this).data('animate-duration'));
-					$(this).css('visibility', 'visible').addClass('animated').addClass($(this).data('animate-in'));
-					$(this).one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function () {
-						$(this).removeClass($(this).data('animate-in'));
-					}
-					);
-				}
-				);
-			}
-		}
-		, sliderNav = $(this).attr('data-slidernav');
-		sliderNav !== 'auto' && (sliderSettings = $.extend( {
-		}
-		, sliderSettings, {
-			manualControls : sliderNav + ' li a', controlsContainer : '.flexslider-wrapper';
-		}
-		));
-		$('html').addClass('has-flexslider');
-		$(this).flexslider(sliderSettings);
-	}
-	);
-	
-	$('.flexslider').resize();
-	
-	// $('.navbar-fixed-top').size() > 0 && $('html').addClass('has-navbar-fixed-top');
-	}
-	
-	function classReg( className ) {
-		return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
-	}
+}(jQuery);
 
-	// classList support for class management
-	// altho to be fair, the api sucks because it won't accept multiple classes at once
-	var hasClass, addClass, removeClass;
-
-	if ( 'classList' in document.documentElement ) {
-		hasClass = function( elem, c ) {
-			return elem.classList.contains( c );
-		};
-		addClass = function( elem, c ) {
-			elem.classList.add( c );
-		};
-		removeClass = function( elem, c ) {
-			elem.classList.remove( c );
-		};
-	}
-	else {
-		hasClass = function( elem, c ) {
-			return classReg( c ).test( elem.className );
-		};
-		addClass = function( elem, c ) {
-			if ( !hasClass( elem, c ) ) {
-				elem.className = elem.className + ' ' + c;
-			}
-		};
-		removeClass = function( elem, c ) {
-			elem.className = elem.className.replace( classReg( c ), ' ' );
-		};
-	}
-
-	function toggleClass( elem, c ) {
-		var fn = hasClass( elem, c ) ? removeClass : addClass;
-		fn( elem, c );
-	}
-
-	var classie = {
-		// full names
-		hasClass: hasClass,
-		addClass: addClass,
-		removeClass: removeClass,
-		toggleClass: toggleClass,
-		// short names
-		has: hasClass,
-		add: addClass,
-		remove: removeClass,
-		toggle: toggleClass
-	};
-
-	// transport
-	if ( typeof define === 'function' && define.amd ) {
-		// AMD
-		define( classie );
-	} else {
-		// browser global
-		window.classie = classie;
-	}
-	
-	var menuRight = $( 'cbp-spmenu-s2' ),
-	showRightPush = $( 'showRightPush' ),
-	closeRightPush = $( 'closeRightPush' ),
-	body = document.body;
-
-	showRightPush.onclick = function() {
-		classie.toggle( this, 'active' );
-		classie.toggle( body, 'cbp-spmenu-push-toleft' );
-		classie.toggle( menuRight, 'cbp-spmenu-open' );
-		disableOther( 'showRightPush' );
-	};
-
-	function disableOther( button ) {
-		if( button !== 'showRightPush' ) {
-			classie.toggle( showRightPush, 'disabled' );
-		}
-	}
-
-	closeRightPush.onclick = function() {
-		classie.toggle( this, 'active' );
-		classie.toggle( body, 'cbp-spmenu-push-toleft' );
-		classie.toggle( menuRight, 'cbp-spmenu-open' );
-		disableOther( 'closeRightPush' );
-	};
-
-	function disableOther( button ) {
-		if( button !== 'closeRightPush' ) {
-			classie.toggle( closeRightPush, 'disabled' );
-		}
-	}
-);
